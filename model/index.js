@@ -14,14 +14,14 @@ const listContacts = async () => {
 
 const getContactById = async (contactId) => {
   const data = await readData()
-  const item = data.find(({ id }) => id === Number(contactId))
+  const item = data.find(({ id }) => String(id) === contactId)
   return item
 }
 
 const removeContact = async (contactId) => {
   const data = await readData()
-  const removed = data.find(({ id }) => id === Number(contactId))
-  const newData = parsedData.filter(({ id }) => id !== removed.id)
+  const removed = data.find(({ id }) => String(id) === contactId)
+  const newData = data.filter(({ id }) => id !== removed.id)
   fs.writeFile(path.join(__dirname, './contacts.json'), JSON.stringify(newData))
   return removed
 }
@@ -40,7 +40,7 @@ const addContact = async (body) => {
 
 const updateContact = async (contactId, body) => {
   const data = await readData()
-  const [result] = data.filter(({ id }) => id === Number(contactId))
+  const [result] = data.filter(({ id }) => String(id) === contactId)
   if (result) {
     Object.assign(result, body)
     await fs.writeFile(path.join(__dirname, './contacts.json'), JSON.stringify(data))
