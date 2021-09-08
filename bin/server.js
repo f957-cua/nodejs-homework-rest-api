@@ -15,4 +15,3 @@ mongoose.connect(DB_HOST, {
   console.log(err.message)
   process.exit(1)
 })
-
