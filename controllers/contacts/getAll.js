@@ -1,11 +1,35 @@
+const { Unauthorized } = require('http-errors')
 const {Contact} = require('../../models')
 
-const getAll = async (req, res, next) => {
+const getAll = async (req, res) => {
   try {
-    const data = await Contact.find({})
-    res.json({ status: 'success', code: 200, data: data })
+    //pagination contacts option
+    const {favorite= null, limit = 5, page = 1} = req.query
+    
+    const optionsSearch = {owner: req.user._id}
+    if (favorite !== null) {
+      optionsSearch.favorite = favorite
+    }
+    //get current user with orders
+    const result = await Contact.paginate(optionsSearch, { limit, page, populate: { path: 'owner', select: '_id email subscription' } })
+    const {docs: contacts, ...rest} = result
+    // .find({owner: req.user._id}).populate('owner', '_id email subscription')
+
+    //get info about user
+    if (result == false) {
+      return res.json({
+        status: 'success',
+        code: 200,
+        data: {contacts, ... rest}
+      })
+    }
+    res.json({
+      status: 'success',
+      code: 200,
+      data: {contacts, ... rest}
+    })
   } catch (error) {
-    next(error)
+    throw new Unauthorized()
   }
 }
 

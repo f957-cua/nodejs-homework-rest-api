@@ -18,10 +18,6 @@ const schemaSignupUser = Joi.object({
   password: Joi.string().min(6).required()
 })
 
-const schemaOwner = Joi.object({
-  name: Joi.string().min(3).max(30).required(),
-})
-
 const validate = async (schema, obj, next) => {
   try {
     await schema.validateAsync(obj)
@@ -44,8 +40,5 @@ module.exports = {
   },
   checkSignupUser: (req, res, next) => {
     return validate(schemaSignupUser, req.body, next)
-  },
-  checkOwner: (req, res, next) => {
-    return validate(schemaOwner, req.body, next)
   }
 }

@@ -3,17 +3,20 @@ const router = express.Router()
 
 const ctrl = require('../../controllers/contacts')
 const { checkCreateContact, checkUpdateContact } = require('../../middlewares/validation')
+const {controllerWrapper, authenticate} = require('../../middlewares')
 
-router.get('/', ctrl.getAll)
+// router.post('/', controllerWrapper(authenticate), controllerWrapper(ctrl.add))
+// router.get('/', controllerWrapper(authenticate), controllerWrapper(ctrl.getAll))
 
-router.get('/:contactId', ctrl.getById)
 
-router.post('/', checkCreateContact, ctrl.post)
 
-router.delete('/:contactId', ctrl.remove)
+router.get('/', controllerWrapper(authenticate), controllerWrapper(ctrl.getAll))
+router.post('/', controllerWrapper(authenticate), checkCreateContact, controllerWrapper(ctrl.post))
 
-router.put('/:contactId', checkUpdateContact, ctrl.put)
+router.get('/:contactId', controllerWrapper(authenticate), controllerWrapper(ctrl.getById))
+router.delete('/:contactId', controllerWrapper(authenticate), controllerWrapper(ctrl.remove))
+router.put('/:contactId', controllerWrapper(authenticate), checkUpdateContact, controllerWrapper(ctrl.put))
 
-router.patch('/:contactId/favorite', ctrl.patch)
+router.patch('/:contactId/favorite', controllerWrapper(authenticate), controllerWrapper(ctrl.patch))
 
 module.exports = router
