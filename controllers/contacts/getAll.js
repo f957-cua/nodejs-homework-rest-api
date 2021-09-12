@@ -4,7 +4,7 @@ const {Contact} = require('../../models')
 const getAll = async (req, res) => {
   try {
     //pagination contacts option
-    const {favorite= null, limit = 5, page = 1} = req.query
+    const {favorite = null, limit = 5, page = 1} = req.query
     
     const optionsSearch = {owner: req.user._id}
     if (favorite !== null) {
@@ -13,7 +13,6 @@ const getAll = async (req, res) => {
     //get current user with orders
     const result = await Contact.paginate(optionsSearch, { limit, page, populate: { path: 'owner', select: '_id email subscription' } })
     const {docs: contacts, ...rest} = result
-    // .find({owner: req.user._id}).populate('owner', '_id email subscription')
 
     //get info about user
     if (result == false) {
