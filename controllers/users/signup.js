@@ -1,6 +1,11 @@
 const bcrypt = require('bcryptjs')
-const {User} = require('../../models')
 const {Conflict} = require('http-errors')
+
+const fs = require('fs/promises')
+const path = require('path')
+const gravatar = require('gravatar')
+
+const {User} = require('../../models')
 
 const signup = async(req, res) => {
   const {email, password} = req.body
@@ -9,8 +14,17 @@ const signup = async(req, res) => {
     throw new Conflict('Email in use')
   }
 
-  const newUser = new User({email})
+  //set avatarURL
+  const gravatarImage = gravatar.url(email)
+  console.log(gravatarImage)
+  const currentUserInfo = {
+    email,
+    avatarURL: gravatarImage
+  }
+
+  const newUser = new User(currentUserInfo)
   newUser.setPassword(password)
+
   await newUser.save()
 
   res.status(201).json({

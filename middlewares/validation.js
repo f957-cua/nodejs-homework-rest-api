@@ -4,18 +4,21 @@ const schemaCreateContact = Joi.object({
   name: Joi.string().min(3).max(30).required(),
   phone: Joi.string().pattern(new RegExp('^[0-9\s]{8,13}$()')).required(),
   email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'ua', 'ru'] } }).required(),
+  avatarURL: Joi.string(),
   favorite: Joi.boolean().optional
 })
 
 const schemaUpdateContact = Joi.object({
   name: Joi.string().min(3).max(30).required(),
   phone: Joi.string().pattern(new RegExp('^[0-9_+]{8,13}$')).required(),
+  avatarURL: Joi.string(),
   email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'ua', 'ru', 'org'] } }).required()
 })
 
 const schemaSignupUser = Joi.object({
   email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'ua', 'ru'] } }).required(),
-  password: Joi.string().min(6).required()
+  password: Joi.string().min(6).required(),
+  avatarURL: Joi.string()
 })
 
 const validate = async (schema, obj, next) => {
