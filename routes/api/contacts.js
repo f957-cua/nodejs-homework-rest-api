@@ -5,11 +5,6 @@ const ctrl = require('../../controllers/contacts')
 const { checkCreateContact, checkUpdateContact } = require('../../middlewares/validation')
 const {controllerWrapper, authenticate} = require('../../middlewares')
 
-// router.post('/', controllerWrapper(authenticate), controllerWrapper(ctrl.add))
-// router.get('/', controllerWrapper(authenticate), controllerWrapper(ctrl.getAll))
-
-
-
 router.get('/', controllerWrapper(authenticate), controllerWrapper(ctrl.getAll))
 router.post('/', controllerWrapper(authenticate), checkCreateContact, controllerWrapper(ctrl.post))
 

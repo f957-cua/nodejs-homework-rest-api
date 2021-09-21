@@ -21,6 +21,10 @@ const schemaSignupUser = Joi.object({
   avatarURL: Joi.string()
 })
 
+const schemaResendVerifyEmail = Joi.object({
+  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'ua', 'ru'] } }).required()
+})
+
 const validate = async (schema, obj, next) => {
   try {
     await schema.validateAsync(obj)
@@ -43,5 +47,8 @@ module.exports = {
   },
   checkSignupUser: (req, res, next) => {
     return validate(schemaSignupUser, req.body, next)
+  },
+  checkResendRequest: (req, res, next) => {
+    return validate(schemaResendVerifyEmail, req.body, next)
   }
 }
