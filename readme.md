@@ -1,15 +1,6 @@
-## Node.js REST-API for contact book
+# REST API for handle contacts.
 
-## RUN:
- 
-- `npm start` &mdash; старт сервера в режиме production
-- `npm run start:dev` &mdash; старт сервера в режиме разработки (development)
-- `npm run lint` &mdash; запустить выполнение проверки кода с eslint, необходимо выполнять перед каждым PR и исправлять все ошибки линтера
-- `npm lint:fix` &mdash; та же проверка линтера, но с автоматическими исправлениями простых ошибок
-
-## REST API for handle contacts.
-
-## MongoDB database
+## 1. MongoDB database
 
 - @ GET /api/contacts
 ничего не получает
@@ -51,9 +42,9 @@
 Если с body все хорошо, вызывает функцию updateStatusContact(contactId, body) (напиши ее) для обновления контакта в базе
 По результату работы функции возвращает обновленный объект контакта и статусом 200. В противном случае, возвращает json с ключом "message": "Not found" и статусом 404
 
-## Joi validation for (POST, PUT, PATCH)
+## 2. Joi validation for (POST, PUT, PATCH)
 
-## SIGNUP request
+## 3. SIGNUP request
 
 ### POST /users/signup
 Content-Type: application/json
@@ -87,7 +78,7 @@ ResponseBody: {
   }
 }
 
-## SIGNIN request
+## 4. SIGNIN request
 
 ### POST /users/login
 Content-Type: application/json
@@ -127,7 +118,7 @@ ResponseBody: {
   "message": "Not authorized"
 }
 
-## LOGOUT request
+## 5. LOGOUT request
 
 ### POST /users/logout
 Authorization: "Bearer {{token}}"
@@ -164,22 +155,22 @@ ResponseBody: {
   "subscription": "starter"
 }
 
-## Pagination
+## 6. Pagination
 
 - mongoose-paginate-v2 for contacts collection (GET /contacts?page=1&limit=20)
 
-## Filter contacts
+## 7. Filter contacts
 
 - filter by field "favorite" (GET /contacts?favorite=true)
 
-## Update subscription
+## 8. Update subscription
 
 ### PATCH /users
 
 - Subscription must have enum ['starter', 'pro', 'business']
 - Default value ['starter']
 
-## Upload avatar by multer
+## 9. Upload avatar by multer
 
 - create default avatar with gravatar by signup
 - upload new avatar
@@ -187,9 +178,9 @@ PATCH "/users/avatars"
 
 - handled uploading avatar with jimp
 
-## Verification email with SendGrid
+## 10. Verification email with SendGrid
 
-### Verification request
+### 10.1 Verification request
 GET /auth/verify/:verificationToken
 
 - Verification user Not Found
@@ -204,7 +195,7 @@ ResponseBody: {
   message: 'Verification successful',
 }
 
-### Resending email request (additional opportunity)
+### 10.2 Resending email request (additional opportunity)
 
 - POST /users/verify/
 Получает body в формате { email }
