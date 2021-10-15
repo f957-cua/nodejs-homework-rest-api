@@ -55,7 +55,7 @@
 
 ### SIGNUP request
 
-POST /users/signup
+## POST /users/signup
 Content-Type: application/json
 RequestBody: {
   "email": "example@example.com",
@@ -89,7 +89,7 @@ ResponseBody: {
 
 ### SIGNIN request
 
-POST /users/login
+## POST /users/login
 Content-Type: application/json
 RequestBody: {
   "email": "example@example.com",
@@ -129,7 +129,7 @@ ResponseBody: {
 
 ### LOGOUT request
 
-POST /users/logout
+## POST /users/logout
 Authorization: "Bearer {{token}}"
 
 - Logout unauthorized error
@@ -174,7 +174,7 @@ ResponseBody: {
 
 ### Update subscription
 
-PATCH /users
+## PATCH /users
 
 - Subscription must have enum ['starter', 'pro', 'business']
 - Default value ['starter']
