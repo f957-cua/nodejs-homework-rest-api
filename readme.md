@@ -1,15 +1,15 @@
 ## Node.js REST-API for contact book
 
-### RUN:
+## RUN:
  
 - `npm start` &mdash; старт сервера в режиме production
 - `npm run start:dev` &mdash; старт сервера в режиме разработки (development)
 - `npm run lint` &mdash; запустить выполнение проверки кода с eslint, необходимо выполнять перед каждым PR и исправлять все ошибки линтера
 - `npm lint:fix` &mdash; та же проверка линтера, но с автоматическими исправлениями простых ошибок
 
-### REST API for handle contacts.
+## REST API for handle contacts.
 
-### MongoDB database
+## MongoDB database
 
 - @ GET /api/contacts
 ничего не получает
@@ -51,11 +51,11 @@
 Если с body все хорошо, вызывает функцию updateStatusContact(contactId, body) (напиши ее) для обновления контакта в базе
 По результату работы функции возвращает обновленный объект контакта и статусом 200. В противном случае, возвращает json с ключом "message": "Not found" и статусом 404
 
-### Joi validation for (POST, PUT, PATCH)
+## Joi validation for (POST, PUT, PATCH)
 
-### SIGNUP request
+## SIGNUP request
 
-## POST /users/signup
+### POST /users/signup
 Content-Type: application/json
 RequestBody: {
   "email": "example@example.com",
@@ -87,9 +87,9 @@ ResponseBody: {
   }
 }
 
-### SIGNIN request
+## SIGNIN request
 
-## POST /users/login
+### POST /users/login
 Content-Type: application/json
 RequestBody: {
   "email": "example@example.com",
@@ -127,9 +127,9 @@ ResponseBody: {
   "message": "Not authorized"
 }
 
-### LOGOUT request
+## LOGOUT request
 
-## POST /users/logout
+### POST /users/logout
 Authorization: "Bearer {{token}}"
 
 - Logout unauthorized error
@@ -164,22 +164,22 @@ ResponseBody: {
   "subscription": "starter"
 }
 
-### Pagination
+## Pagination
 
 - mongoose-paginate-v2 for contacts collection (GET /contacts?page=1&limit=20)
 
-### Filter contacts
+## Filter contacts
 
 - filter by field "favorite" (GET /contacts?favorite=true)
 
-### Update subscription
+## Update subscription
 
-## PATCH /users
+### PATCH /users
 
 - Subscription must have enum ['starter', 'pro', 'business']
 - Default value ['starter']
 
-### Upload avatar by multer
+## Upload avatar by multer
 
 - create default avatar with gravatar by signup
 - upload new avatar
@@ -187,9 +187,9 @@ PATCH "/users/avatars"
 
 - handled uploading avatar with jimp
 
-### Verification email with SendGrid
+## Verification email with SendGrid
 
-## Verification request
+### Verification request
 GET /auth/verify/:verificationToken
 
 - Verification user Not Found
@@ -204,7 +204,7 @@ ResponseBody: {
   message: 'Verification successful',
 }
 
-## Resending email request (additional opportunity)
+### Resending email request (additional opportunity)
 
 - POST /users/verify/
 Получает body в формате { email }
